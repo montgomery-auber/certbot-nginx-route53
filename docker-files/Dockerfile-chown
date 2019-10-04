@@ -1,0 +1,9 @@
+FROM ubuntu:16.04
+VOLUME /etc/letsencrypt/
+
+RUN  apt-get  update
+RUN  apt-get install  sudo -y
+RUN useradd nginx
+RUN sleep 5
+# ENTRYPOINT ["sudo", "chmod", "-R",  "644", "/etc/letsencrypt"]
+ENTRYPOINT ["sleep", "7", ";", "sudo", "chown", "-R", "nginx:nginx", "/etc/letsencrypt"]
