@@ -1,0 +1,50 @@
+version: '3.4' 
+services:  
+  certbot:
+    environment: 
+      - FQDN=i.datagen.tech
+    container_name: 'certbot'
+    image: certbot/dns-route53
+    restart: unless-stopped
+    volumes:
+      - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
+      - ../docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt
+      - ../docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
+      - ../docker-volumes/var/log/letsencrypt:/var/log/letsencrypt
+      - ../docker-volumes/.aws:/root/.aws 
+    command: certonly --email steve.gindi@datagen.tech --agree-tos --no-eff-email --non-interactive -d *.${FQDN} -d ${FQDN} --dns-route53 --staging 
+    networks:
+      - docker-network
+
+  chown:
+    container_name: chown
+    build: 
+      context: .
+      dockerfile: Dockerfile-chown
+    depends_on:
+      - certbot
+    volumes:
+      - ../docker-volumes/etc/letsencrypt:/etc/letsencrypt
+
+  nginx:
+    environment: 
+      - FQDN=i.datagen.tech
+    container_name: nginx
+    image: nginx:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx-default.conf:/etc/nginx/conf.d/default.conf
+      - ..//docker-volumes/etc/letsencrypt/archive/${FQDN}*/fullchain1.pem:/etc/ssl/fullchain1.pem
+      - ..//docker-volumes/etc/letsencrypt/archive/${FQDN}*/privkey1.pem:/etc/ssl/privkey1.pem
+    networks:
+      - docker-network
+    # command: "/bin/sh -c  'sleep 8; while :; do sleep 6h & wait $${!}; nginx -s reload; done'"
+    
+    # & nginx -g # \"daemon off;\"'"
+
+networks:
+  docker-network:
+    driver: bridge
