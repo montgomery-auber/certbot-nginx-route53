@@ -13,21 +13,12 @@ services:
       - ../docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt
       - ../docker-volumes/var/log/letsencrypt:/var/log/letsencrypt
       - ../docker-volumes/.aws:/root/.aws 
-    command: certonly --email support@floatingcloud.io --agree-tos --no-eff-email --non-interactive -d hmail.float.i.ng --dns-route53 --staging 
-
-#docker run -v /home/steve/cerbot-containerized/docker-volumes/etc/letsencrypt:/etc/letsencrypt -v /home/steve/cerbot-containerized/docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt -v /home/steve/cerbot-containerized/docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt  -v /home/steve/cerbot-containerized/docker-volumes/var/log/letsencrypt:/var/log/letsencrypt  -v /home/steve/cerbot-containerized/docker-volumes/.aws:/root/.aws   certbot/dns-route53
-
+    command: certonly --email  YOUR-email@YOURDOMAIN.com --agree-tos --no-eff-email --non-interactive -d DOMAIN_NEEDING_CERT.com --dns-route53 --staging 
 # get shell
 
-#docker run -it --rm  -v /home/steve/cerbot-containerized/docker-volumes/etc/letsencrypt:/etc/letsencrypt -v /home/steve/cerbot-containerized/docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt -v /home/steve/cerbot-containerized/docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt  -v /home/steve/cerbot-containerized/docker-volumes/var/log/letsencrypt:/var/log/letsencrypt  -v /home/steve/cerbot-containerized/docker-volumes/.aws:/root/.aws --entrypoint /bin/sh  certbot/dns-route53
+#   docker run -it --rm  -v /mnt/c/Users/rabis/OneDrive/samples/Charming/scripts/cerbot-containerized/docker-volumes/etc/letsencrypt:/etc/letsencrypt -v /mnt/c/Users/rabis/OneDrive/samples/Charming/scripts/cerbot-containerized/docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt -v /mnt/c/Users/rabis/OneDrive/samples/Charming/scripts/cerbot-containerized/docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt  -v /mnt/c/Users/rabis/OneDrive/samples/Charming/scripts/cerbot-containerized/docker-volumes/var/log/letsencrypt:/var/log/letsencrypt  -v /mnt/c/Users/rabis/OneDrive/samples/Charming/scripts/cerbot-containerized/docker-volumes/.aws:/root/.aws --entrypoint /bin/sh  certbot/dns-route53
 
-
-# docker run -it --rm  -v /home/steve/cerbot-containerized/docker-volumes/etc/letsencrypt:/etc/letsencrypt -v /home/steve/cerbot-containerized/docker-volumes/var/lib/letsencrypt:/var/lib/letsencrypt -v /home/steve/cerbot-containerized/docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/letsencrypt-site:/data/letsencrypt  -v /home/steve/cerbot-containerized/docker-volumes/var/log/letsencrypt:/var/log/letsencrypt  -v /home/steve/cerbot-containerized/docker-volumes/.aws:/root/.aws  certbot/dns-route53 certonly --email steve.gindi@mydomain.tech --agree-tos --no-eff-email --non-interactive -d i.mydomain.tech --dns-route53 #--staging 
-
-#
-#
-#Use certbot docker-volumes with command docker run -it --rm  -v /home/steve/cerbot-containerized/docker-volumes/etc/#letsencrypt:/etc/letsencrypt -v /home/steve/cerbot-containerized/docker-volumes/var/lib/letsencrypt:/var/lib/#letsencrypt -v /home/steve/cerbot-containerized/docker-volumes/letsencrypt-docker-nginx/src/letsencrypt/#letsencrypt-site:/data/letsencrypt  -v /home/steve/cerbot-containerized/docker-volumes/var/log/letsencrypt:/var/log/#letsencrypt  -v /home/steve/cerbot-containerized/docker-volumes/.aws:/root/.aws  certbot/dns-route53 certonly --email #steve.gindi@mydomain.tech --agree-tos --no-eff-email --non-interactive -d i.mydomain.tech --dns-route53
-#
+# To upload to a fortigate
 #Then upload 
 #System -> Config -> Certificates -> Import -> Local Certificate. Set type to Certificate. For certificate choose cert.#pem and for key choose privkey.pem
 #VPN -> SSL -> Settings. Change Server Certificate.
