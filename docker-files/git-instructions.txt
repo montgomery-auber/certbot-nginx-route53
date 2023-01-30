@@ -1,2 +1,0 @@
-git remote add origin https://github.com/montgomery-auber/certbot-nginx-route53.git
-git push -u origin master
